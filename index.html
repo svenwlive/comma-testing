@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Komade Harjutus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    Komade Harjutus
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+  </header>
+
+  <div class="container">
+    <div class="instructions">
+      Pane õiged komad järgmisesse tekstilõiku:
+    </div>
+
+    <textarea id="commaInput">
+        Kui hakkame midagi tegema peame olema tähelepanelikud ja keskendunud.
+    </textarea>
+
+    <button id="submitBtn" onclick="handleSubmit()">Kontrolli</button>
+
+    <div class="highlighted" id="highlightedOutput" style="display: none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
