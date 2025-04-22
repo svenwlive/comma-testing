@@ -32,32 +32,21 @@
     background-color: var(--secondary);
     color: white;
     width: 100%;
-    padding: 1rem 0;
+    padding: 1.2rem 0rem;
     text-align: center;
     font-size: 1.5rem;
     position: relative;
   }
   
-  .theme-toggle {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    background: none;
-    border: 2px solid white;
-    color: white;
-    padding: 0.3rem 0.6rem;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
   .container {
     margin-top: 2rem;
     background: var(--input-bg);
-    padding: 2rem;
+    padding: 4rem;
+    padding-left: 2rem;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 700px;
-    width: 90%;
+    max-width: 800px;
+    width: 100%;
     transition: background-color 0.3s;
   }
   
@@ -67,7 +56,7 @@
   }
   
   textarea {
-    width: 100%;
+    width: 96%;
     height: 150px;
     font-size: 1rem;
     padding: 1rem;
@@ -86,6 +75,18 @@
     background-color: var(--primary);
     color: white;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .theme-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    padding: 0.3rem 0.6rem;
     border-radius: 5px;
     cursor: pointer;
   }
@@ -112,5 +113,20 @@
   .incorrect {
     color: red;
     font-weight: bold;
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  
+  #nextBtn {
+    background-color: #3498db;
+  }
+  
+  #nextBtn:hover {
+    filter: brightness(0.9);
   }
   
