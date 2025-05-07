@@ -1,6 +1,12 @@
+// todo
+// add api stuffs (address to api, create the api, create way to add exercises(table in sql or smth), fetch stuffs)
+
 function conlog(msg) {
   console.log(msg);
 }
+conlog("hiya! your javascript is enabled and working!")
+conlog("^_^")
+const apiLocation = "" // Put the api address here. needs updating.
 
 const exercises = [
   {
