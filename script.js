@@ -82,6 +82,8 @@ function handleSubmit() {
 // comma logic
 function compareTextWithCommas(user, correct) {
   const userChars = [...user];
+  // comment below is debug only
+  // console.log('userChars', userChars)
   const correctChars = [...correct];
 
   let result = "";
