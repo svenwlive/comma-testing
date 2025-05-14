@@ -1,26 +1,18 @@
 // todo
-// add api stuffs (address to api, create the api, create way to add exercises(table in sql or smth), fetch stuffs)
+// NONE!! <^_^>
 
 function conlog(msg) {
   console.log(msg);
-}
+};
 conlog("hiya! your javascript is enabled and working!")
 conlog("^_^")
-const apiLocation = "" // Put the api address here. needs updating.
+const apiLocation = "https://lwwwakhyleyaudjzhaoj.supabase.co"
+const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3d3dha2h5bGV5YXVkanpoYW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcyMDcxMDEsImV4cCI6MjA2Mjc4MzEwMX0.sN0Wlil2PTGpMY1kYkF-jE-uZZmsTz98UrUZJQpTb_M"
 
-const exercises = [
-  {
-    original: "Kui hakkame midagi tegema, peame olema tähelepanelikud ja keskendunud.",
-    noCommas: "Kui hakkame midagi tegema peame olema tähelepanelikud ja keskendunud."
-  },
-  {
-    original: "Ma lähen poodi, ostan piima ja tulen tagasi.",
-    noCommas: "Ma lähen poodi ostan piima ja tulen tagasi."
-  }
-];
-
+const exercises = [];
 let currentExerciseIndex = 0;
 
+// handle the theming
 function applySystemTheme() {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
@@ -31,20 +23,48 @@ function toggleTheme() {
   document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
 }
 
-window.onload = () => {
-  applySystemTheme();
-  loadExercise();
-};
+// get the exercises
+async function fetchExercises() {
+  try {
+    const response = await fetch(`${apiLocation}/rest/v1/exercises?select=*`, {
+      headers: {
+        'apikey': apiKey,
+        'Authorization': `Bearer ${apiKey}`
+      }
+    });
 
+    if (!response.ok) throw new Error("Failed to fetch data");
+
+    const data = await response.json();
+
+    if (data.length === 0) {
+      alert("Harjutusi ei leitud!");
+      return;
+    }
+
+    exercises.push(...data);
+    loadExercise();
+
+  } catch (error) {
+    console.error("Error fetching exercises:", error);
+    alert("Viga harjutuste laadimisel.");
+  }
+}
+
+// ui
 function loadExercise() {
   const textarea = document.getElementById("commaInput");
-  textarea.value = exercises[currentExerciseIndex].noCommas;
-  textarea.readOnly = false;
+  const output = document.getElementById("highlightedOutput");
 
-  document.getElementById("highlightedOutput").style.display = "none";
+  textarea.value = exercises[currentExerciseIndex].no_commas;
+  textarea.readOnly = false;
+  output.style.display = "none";
+  output.innerHTML = "";
+
   document.getElementById("submitBtn").disabled = false;
 }
 
+// submit button handle
 function handleSubmit() {
   const textarea = document.getElementById("commaInput");
   const highlighted = document.getElementById("highlightedOutput");
@@ -59,6 +79,7 @@ function handleSubmit() {
   highlighted.innerHTML = highlightedHTML;
 }
 
+// comma logic
 function compareTextWithCommas(user, correct) {
   const userChars = [...user];
   const correctChars = [...correct];
@@ -74,7 +95,7 @@ function compareTextWithCommas(user, correct) {
     } else if (correctChar === "," && userChar !== ",") {
       result += `<span class="incorrect">,</span>`;
     } else if (correctChar !== "," && userChar === ",") {
-      result += `<span class="incorrect">,</span>${userChar !== correctChar ? "" : ""}`;
+      result += `<span class="incorrect">,</span>`;
     } else {
       result += correctChar;
     }
@@ -83,7 +104,14 @@ function compareTextWithCommas(user, correct) {
   return result;
 }
 
+// button for next exercise
 function nextExercise() {
   currentExerciseIndex = (currentExerciseIndex + 1) % exercises.length;
   loadExercise();
 }
+
+// run on page load
+window.onload = () => {
+  applySystemTheme();
+  fetchExercises();
+};
