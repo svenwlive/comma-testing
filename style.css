@@ -106,13 +106,13 @@
   }
   
   .correct {
-    color: green;
-    font-weight: bold;
+    color: rgb(0, 255, 0);
+    font-weight: 1000;
   }
   
   .incorrect {
     color: red;
-    font-weight: bold;
+    font-weight: 1000;
   }
   
   .button-row {
